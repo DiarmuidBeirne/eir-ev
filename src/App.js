@@ -5,8 +5,16 @@ import { BrowserRouter, Route, Switch} from "react-router-dom";
 import List from "./components/List";
 import './App.css';
 
+
 import login from "./components/login/login";
 import ChargerPage from './components/chargerPage/ChargerPage';
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+
+
+// const store = createStore(() => [], {}, applyMiddleware());
 
 const Container = styled.main`
   min-height: 100vh;
@@ -25,6 +33,7 @@ class App extends Component {
 
   render() {
     return (
+      <Provider store={store}>
       <BrowserRouter>
       <div className="App">
       <Container>
@@ -42,6 +51,7 @@ class App extends Component {
                 </Container>
             </div>
             </BrowserRouter>
+            </Provider>
     );
   }
 }
