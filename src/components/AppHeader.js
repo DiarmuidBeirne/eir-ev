@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { NavLink } from 'react-router-dom';
+
 
 const styles = {
   root: {
@@ -51,12 +53,16 @@ class AppHeader extends React.Component {
         
         <AppBar position="static" color="primary">
           <Toolbar>
+          <NavLink to="/chargerListings">
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
+            </NavLink>
+            
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Eir Ev
             </Typography>
+            
             {auth && (
               <div>
                 <IconButton

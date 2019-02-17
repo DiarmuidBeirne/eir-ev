@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import AppHeader from './components/AppHeader'
 import styled from "styled-components";
-import { BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 import List from "./components/List";
 import './App.css';
+
+import login from "./components/login/login";
+import ChargerPage from './components/chargerPage/ChargerPage';
 
 const Container = styled.main`
   min-height: 100vh;
@@ -19,42 +22,28 @@ const Main = styled.section`
 
 class App extends Component {
 
-  constructor(props) {
-        
-    super(props);
-    this.state = {
-        items: [],
-        isLoaded: false,
-        
-    }
-}
-
-componentDidMount() {
-    
-    fetch('https://61rek4ywu6.execute-api.us-east-2.amazonaws.com/live/-charger')
-    .then(res => res.json())
-    .then(json => {
-        this.setState({
-            isLoaded: true,
-            items: json.Items
-        })
-    });
-    
-    
-}
 
   render() {
     return (
+      <BrowserRouter>
       <div className="App">
-                <Container>
+      <Container>
                     <Main>
                 <AppHeader/>
-                <List chargerList={this.state.items}/>
-                    </Main>
+                
+     <Switch>
+       <Route path="/" component={login} exact />
+       <Route path="/chargerListings" component={List} />
+      <Route path="/chargerPage/:chargerId" component={ChargerPage} name="chargerPage"/>
+
+     </Switch>
+                
+                 </Main>
                 </Container>
             </div>
+            </BrowserRouter>
     );
   }
 }
-
+//Need to create a seperate router.js
 export default App;

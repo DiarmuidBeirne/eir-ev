@@ -4,6 +4,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -15,7 +16,7 @@ export default class CustomListItem extends Component {
     return (
      
      
-
+<NavLink to={`chargerPage/${this.props.listItem.chargerID}`}>
 <ListItem alignItems="flex-start">
 <ListItemAvatar>
   <Avatar alt="&" src={imgPath} />
@@ -32,6 +33,7 @@ export default class CustomListItem extends Component {
   }
 />
 </ListItem>
+</NavLink>
 
     )
   }
