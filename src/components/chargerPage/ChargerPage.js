@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { fetchCharger } from '../../actions/chargerActions';
 
-
-import Divider from '@material-ui/core/Divider';
 
 
 
@@ -17,7 +17,12 @@ class ChargerPage extends Component {
     }
 }
 
-
+componentWillMount()
+{
+  let id = this.props.match.params.chargerId
+  this.props.fetchCharger(id);
+  
+}
     
 
   render() {
@@ -28,6 +33,9 @@ class ChargerPage extends Component {
       
   }
 }
+const mapStateToProps = state => ({
+  chargers: state.chargers.chargers
+});
 
 
-export default ChargerPage;
+export default connect(mapStateToProps, { fetchCharger })(ChargerPage);
