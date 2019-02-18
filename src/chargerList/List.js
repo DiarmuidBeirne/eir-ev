@@ -5,8 +5,15 @@ import PropTypes from "prop-types";
 import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
 import { fetchChargers } from '../actions/chargerActions';
+import BottomNavbar from './BottomNavbar';
+import styled from "styled-components";
 
 
+const NavContainer = styled.main`
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+`;
 
 class List extends Component {
 
@@ -20,12 +27,21 @@ componentWillMount() {
 }
   render() {
     
-      return this.props.chargers.map((listItem) => (
-          <React.Fragment>
-          <CustomListItem key={listItem.id} listItem={listItem}/>
+      const list = this.props.chargers.map((listItem) => (
+          <div>
+          <CustomListItem key={listItem.chargerID} listItem={listItem}/>
           <Divider variant="inset" />
-          </React.Fragment>
+          </div>
       ));
+
+      return (
+        <div>
+          {list}
+          <NavContainer>
+          <BottomNavbar/>
+          </NavContainer>
+        </div>
+      );
       
       
   }

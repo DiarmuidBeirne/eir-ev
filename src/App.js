@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import AppHeader from './components/AppHeader'
 import styled from "styled-components";
 import { BrowserRouter, Route, Switch} from "react-router-dom";
-import List from "./components/List";
+import List from "./chargerList/List";
 import './App.css';
-
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import login from "./components/login/login";
 import ChargerPage from './components/chargerPage/ChargerPage';
@@ -15,6 +15,7 @@ import store from './store';
 
 
 // const store = createStore(() => [], {}, applyMiddleware());
+
 
 const Container = styled.main`
   min-height: 100vh;
