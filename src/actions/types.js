@@ -1,0 +1,1 @@
+export const FETCH_CHARGERS = 'FETCH_CHARGERS';
