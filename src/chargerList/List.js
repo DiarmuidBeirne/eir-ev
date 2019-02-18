@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { fetchChargers } from '../actions/chargerActions';
 import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";
-
+import Map from './Map';
 
 const NavContainer = styled.main`
     position: fixed;
@@ -16,7 +16,7 @@ const NavContainer = styled.main`
 `;
 
 class List extends Component {
-
+  
   
 
 componentWillMount() {
@@ -25,6 +25,11 @@ componentWillMount() {
     
     
 }
+
+changeViewMode = (value) => {
+  this.setState({ value });
+};
+
   render() {
     
       const list = this.props.chargers.map((listItem) => (
@@ -33,12 +38,14 @@ componentWillMount() {
           <Divider variant="inset" />
           </div>
       ));
-
+        
+        const viewMode = list;
       return (
         <div>
-          {list}
+          {viewMode}
+          
           <NavContainer>
-          <BottomNavbar/>
+          <BottomNavbar changeView={this.changeViewMode}/>
           </NavContainer>
         </div>
       );
@@ -46,6 +53,9 @@ componentWillMount() {
       
   }
 }
+
+
+
 
 List.propTypes = {
   chargers: PropTypes.array.isRequired

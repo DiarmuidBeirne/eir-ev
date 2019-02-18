@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import Marker from 'google-map-react';
 import BoltIcon from '@material-ui/icons/OfflineBolt';
  
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
  
 class Map extends Component {
   
@@ -15,10 +15,7 @@ class Map extends Component {
           lat: parseFloat(this.props.lat),
           lng: parseFloat(this.props.lng)
       }
-      console.log("center");
-      console.log(this.props.center);
-      console.log("coOrd");
-      console.log(coOrd);
+      
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '200px', width: '100%' }}>

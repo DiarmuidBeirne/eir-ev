@@ -3,6 +3,7 @@ import AppHeader from './components/AppHeader'
 import styled from "styled-components";
 import { BrowserRouter, Route, Switch} from "react-router-dom";
 import List from "./chargerList/List";
+import Map from "./chargerList/Map";
 import './App.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -44,6 +45,7 @@ class App extends Component {
      <Switch>
        <Route path="/" component={login} exact />
        <Route path="/chargerListings" component={List} />
+       <Route path="/chargerMap" component={Map} />
       <Route path="/chargerPage/:chargerId" component={ChargerPage} name="chargerPage"/>
 
      </Switch>

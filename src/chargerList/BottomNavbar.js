@@ -6,6 +6,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
 import ListIcon from '@material-ui/icons/FormatListBulleted';
 import MapIcon from '@material-ui/icons/Map';
+import { NavLink } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -33,8 +34,12 @@ class BottomNavbar extends React.Component {
         onChange={this.handleChange}
         showLabels
       >
+      <NavLink to={"/chargerListings"}>
         <BottomNavigationAction label="List" icon={<ListIcon />} />
+        </NavLink>
+        <NavLink to={"/chargerMap"}>
         <BottomNavigationAction label="Map View" icon={<MapIcon/>} />
+        </NavLink>
       </BottomNavigation>
     );
   }

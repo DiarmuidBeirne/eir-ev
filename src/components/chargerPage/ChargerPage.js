@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchChargers } from '../../actions/chargerActions';
 import Map from './Map';
-
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -41,11 +44,34 @@ componentWillMount()
       return (
         <div>
           <Map lat={chargerObject.lat} lng={chargerObject.long}/>
-        <h1>{chargerObject.chargerTypeName}</h1>
-        <br/>
-        <h3>{chargerObject.addressLine1}</h3>
-        <h3>{chargerObject.addressLine2}</h3>
-        <h3>{chargerObject.addressLine3}</h3>
+          <br></br>
+          <Paper  elevation={3}>
+        <Typography variant="h5" component="h3">
+          Charger Type: {chargerObject.chargerTypeName}
+        </Typography>
+        
+      </Paper>
+<br></br>
+      <Paper  elevation={1}>
+        <Typography variant="h6" component="h6">
+          Address
+        </Typography>
+        <Typography component="p">
+        {chargerObject.addressLine1}<br/>
+        {chargerObject.addressLine2}<br/>
+        {chargerObject.addressLine3}</Typography>
+        <Divider variant="middle" />
+        
+        <Typography variant="h8" component="h8">
+          €{chargerObject.costPerHour} per hour
+        </Typography>
+
+
+      </Paper>
+        <br></br>
+        <Button variant="contained" color="secondary" >
+        Book Now
+      </Button>
         </div>
 
         
