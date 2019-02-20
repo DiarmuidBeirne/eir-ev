@@ -10,6 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker } from 'material-ui-pickers';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+
 
 
 
@@ -21,6 +25,7 @@ class ChargerPage extends Component {
     
     this.state = { 
       selectedDate: new Date(),
+      timeRequired: 30,
          chargerID : this.props.match.params.chargerId
     }
 }
@@ -28,6 +33,20 @@ class ChargerPage extends Component {
 handleDateChange = date => {
   this.setState({ selectedDate: date });
 };
+
+handleTimeAdded = press => {
+  let newTime = this.state.timeRequired + 30;
+  this.setState({ timeRequired: newTime});
+}
+
+handleTimeRemoved = press => {
+  if(this.state.timeRequired > 0){
+
+  let newTime = this.state.timeRequired - 30;
+  this.setState({ timeRequired: newTime});
+  }
+}
+
 
 
 
@@ -83,9 +102,16 @@ componentWillMount()
       </Paper>
         <br></br>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DateTimePicker value={selectedDate} onChange={this.handleDateChange} />
+        <DateTimePicker value={selectedDate} onChange={this.handleDateChange} disablePast={true} minutesStep={15}/>
       </MuiPickersUtilsProvider>
       <br></br>
+<div>
+      <Fab color="primary" aria-label="Add" onClick={this.handleTimeAdded}>
+        <AddIcon />
+      </Fab> <h2>{this.state.timeRequired} mins</h2><Fab color="primary" aria-label="Add" onClick={this.handleTimeRemoved} >
+        <RemoveIcon />
+      </Fab> 
+      </div>
       <br></br>
         <Button variant="contained" color="secondary" >
         Book Now

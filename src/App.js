@@ -9,6 +9,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 import login from "./components/login/login";
 import ChargerPage from './components/chargerPage/ChargerPage';
+import Profile from './components/userProfile/History';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -46,6 +47,7 @@ class App extends Component {
        <Route path="/" component={login} exact />
        <Route path="/chargerListings" component={List} />
        <Route path="/chargerMap" component={Map} />
+       <Route path="/profile" component={Profile} />
       <Route path="/chargerPage/:chargerId" component={ChargerPage} name="chargerPage"/>
 
      </Switch>
