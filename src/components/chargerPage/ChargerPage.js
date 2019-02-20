@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { DateTimePicker } from 'material-ui-pickers';
 
 
 
@@ -17,9 +20,16 @@ class ChargerPage extends Component {
     super(props);
     
     this.state = { 
+      selectedDate: new Date(),
          chargerID : this.props.match.params.chargerId
     }
 }
+
+handleDateChange = date => {
+  this.setState({ selectedDate: date });
+};
+
+
 
 componentWillMount()
 {
@@ -30,11 +40,14 @@ componentWillMount()
     
 
   render() {
+
+    const { selectedDate } = this.state;
+
     let jsonData = this.props.chargers;
     var chargerObject;
     for(var i = 0; i < jsonData.length; i++)
     {
-      console.log(jsonData[i].chargerID);
+      
       if (jsonData[i].chargerID == this.state.chargerID) {
         chargerObject = jsonData[i];
         
@@ -65,13 +78,19 @@ componentWillMount()
         <Typography variant="h8" component="h8">
           €{chargerObject.costPerHour} per hour
         </Typography>
-
+        
 
       </Paper>
         <br></br>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <DateTimePicker value={selectedDate} onChange={this.handleDateChange} />
+      </MuiPickersUtilsProvider>
+      <br></br>
+      <br></br>
         <Button variant="contained" color="secondary" >
         Book Now
       </Button>
+      
         </div>
 
         
