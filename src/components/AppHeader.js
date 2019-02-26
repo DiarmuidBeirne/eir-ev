@@ -65,7 +65,7 @@ class AppHeader extends React.Component {
             
             {auth && (
               <div>
-                <NavLink to="/profile">
+               
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
@@ -74,8 +74,8 @@ class AppHeader extends React.Component {
                 >
                   <AccountCircle />
                 </IconButton>
-                </NavLink>
-                {/* <Menu
+               
+                <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -89,11 +89,13 @@ class AppHeader extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  
+                  <NavLink to="/profile">
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   </NavLink>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu> */}
+                  <NavLink to="/admin">
+                  <MenuItem onClick={this.handleClose}>Admin Portal</MenuItem>
+                  </NavLink>
+                </Menu> 
               </div>
             )}
           </Toolbar>
