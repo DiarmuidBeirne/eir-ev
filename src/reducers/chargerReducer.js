@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
     switch(action.type)
     {
         case FETCH_CHARGERS:
-        console.log("reducer");
+      
         return {
             ...state,
             chargers: action.payload.Items

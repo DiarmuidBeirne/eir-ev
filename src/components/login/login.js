@@ -48,6 +48,23 @@ const styles = theme => ({
 
 
 export default class login extends Component {
+
+  constructor(props) {
+        
+    super(props);
+    
+    this.state = { 
+      usernameEntered: "",
+      passwordEntered: ""
+    };
+    
+}
+
+handleUsernameChange = evt => {
+  this.setState({ usernameEntered: evt.target.value });
+  console.log(this.state);
+};
+
   render() {
     return (
       <main >
@@ -59,8 +76,8 @@ export default class login extends Component {
         </Typography>
         <form >
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <InputLabel htmlFor="email">User ID</InputLabel>
+            <Input id="email" name="email" autoComplete="email" autoFocus="true" value={this.state.usernameEntered} onChange={evt => this.handleUsernameChange(evt)}/>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -72,7 +89,7 @@ export default class login extends Component {
           />
 <NavLink to="/chargerListings">
           <Button
-            
+            onClick={this.handleUsernameChange}
             fullWidth
             variant="contained"
             color="secondary"

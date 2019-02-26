@@ -3,7 +3,7 @@ import GoogleMap from 'google-map-react';
 import Marker from 'google-map-react';
 import BoltIcon from '@material-ui/icons/OfflineBolt';
 import { connect } from 'react-redux';
-import { fetchChargers } from '../actions/chargerActions';
+import { fetchChargers } from '../../actions/chargerActions';
 import { NavLink } from 'react-router-dom';
 import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";

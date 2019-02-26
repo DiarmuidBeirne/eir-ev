@@ -4,7 +4,7 @@ import CustomListItem from './CustomListItem';
 import PropTypes from "prop-types";
 import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
-import { fetchChargers } from '../actions/chargerActions';
+import { fetchChargers } from '../../actions/chargerActions';
 import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";
 import Map from './Map';

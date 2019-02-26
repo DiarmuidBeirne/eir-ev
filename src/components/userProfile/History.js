@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import CustomListItem from '../../chargerList/CustomListItem';
+import BookingListItem from './bookingListItem';
 import PropTypes from "prop-types";
 import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
-import { fetchChargers } from '../../actions/chargerActions';
-import BottomNavbar from '../../chargerList/BottomNavbar';
+import { fetchBookings } from '../../actions/bookingActions';
+//import BottomNavbar from '../../chargerList/BottomNavbar';
 import styled from "styled-components";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +23,7 @@ class List extends Component {
 
 componentWillMount() {
     
-    this.props.fetchChargers();
+    this.props.fetchBookings();
     
     
 }
@@ -33,15 +33,15 @@ changeViewMode = (value) => {
 };
 
   render() {
-    
-      const list = this.props.chargers.map((listItem) => (
+      
+      const liveList = this.props.bookings.map((listItem) => (
           <div>
-          <CustomListItem key={listItem.chargerID} listItem={listItem}/>
+          <BookingListItem key={listItem.chargerID} listItem={listItem}/>
           <Divider variant="inset" />
           </div>
       ));
         
-        const viewMode = list;
+        //const viewMode = list;
       return (
         <div>
             <Typography variant="h5" component="h3">
@@ -54,19 +54,18 @@ changeViewMode = (value) => {
         </Typography>
         
       </Paper>
-      <br></br>
-      <br></br>
-      <h4>No Current/Live Bookings</h4>
-      <br></br>
-      <br></br>
+      
+      {liveList}
+      
+      
       <Paper  elevation={6}>
         <Typography variant="h5" component="h3">
           Previous Bookings
         </Typography>
         
       </Paper>
-      <br></br>
-          {viewMode}
+      <br></br><br></br><br></br><br></br>
+      <h4>No Previous Bookings</h4>
           
           
         </div>
@@ -79,15 +78,16 @@ changeViewMode = (value) => {
 
 
 
-List.propTypes = {
-  chargers: PropTypes.array.isRequired
-};
+// List.propTypes = {
+//   chargers: PropTypes.array.isRequired
+// };
 
 const mapStateToProps = state => ({
-  chargers: state.chargers.chargers
+  bookings: state.bookings.bookings
+  
 });
 
 
 
 
-export default connect(mapStateToProps, { fetchChargers })(List);
+export default connect(mapStateToProps, { fetchBookings })(List);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { fetchChargers } from '../../actions/chargerActions';
+import { createBooking } from '../../actions/bookingActions'
 import Map from './Map';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -25,9 +26,11 @@ class ChargerPage extends Component {
     
     this.state = { 
       selectedDate: new Date(),
-      timeRequired: 30,
-         chargerID : this.props.match.params.chargerId
-    }
+      timeRequired: 60,
+         chargerID : this.props.match.params.chargerId,
+         chargerObject: {}
+    };
+    
 }
 
 handleDateChange = date => {
@@ -35,16 +38,44 @@ handleDateChange = date => {
 };
 
 handleTimeAdded = press => {
-  let newTime = this.state.timeRequired + 30;
+  let newTime = this.state.timeRequired + 15;
   this.setState({ timeRequired: newTime});
 }
 
 handleTimeRemoved = press => {
   if(this.state.timeRequired > 0){
 
-  let newTime = this.state.timeRequired - 30;
+  let newTime = this.state.timeRequired - 15;
   this.setState({ timeRequired: newTime});
   }
+}
+
+handleBooking = press => {
+  const min = ((this.state.selectedDate.getMinutes() == 0) ? this.state.selectedDate.getMinutes().toString() + "0" : this.state.selectedDate.getMinutes().toString());
+  const booking = {
+      addressLine1: this.state.chargerObject.addressLine1,
+      addressLine2: this.state.chargerObject.addressLine2,
+      addressLine3: this.state.chargerObject.addressLine3,
+      bookingID: Math.floor(Math.random() * 9999) + 1000,
+      chargerCode: 1234,
+      chargerID: this.state.chargerID,
+      chargerType: this.state.chargerObject.chargerTypeName,
+      cost: "0",
+      customerID: 3004,
+      duration: this.state.timeRequired,
+      lat: this.state.chargerObject.lat,
+      long: this.state.chargerObject.long,
+      powerUsed: 0,
+      startDate: this.state.selectedDate.getDate(),
+      startHour: this.state.selectedDate.getHours(),
+      startMinute: min,
+      startMonth: this.state.selectedDate.getMonth() + 1,
+      startYear: this.state.selectedDate.getFullYear(),
+      status: "booked"
+    }
+
+    this.props.createBooking(booking);
+  
 }
 
 
@@ -54,6 +85,16 @@ componentWillMount()
 {
   
   this.props.fetchChargers();
+  let jsonData = this.props.chargers;
+    var chargerObject;
+    for(var i = 0; i < jsonData.length; i++)
+    {
+      
+      if (jsonData[i].chargerID == this.state.chargerID) {
+        this.setState({ chargerObject: jsonData[i]});
+        
+      }
+    }
   
 }
     
@@ -61,17 +102,8 @@ componentWillMount()
   render() {
 
     const { selectedDate } = this.state;
-
-    let jsonData = this.props.chargers;
-    var chargerObject;
-    for(var i = 0; i < jsonData.length; i++)
-    {
-      
-      if (jsonData[i].chargerID == this.state.chargerID) {
-        chargerObject = jsonData[i];
-        
-      }
-    }
+    const { chargerObject} = this.state;
+    
 
       return (
         <div>
@@ -113,7 +145,7 @@ componentWillMount()
       </Fab> 
       </div>
       <br></br>
-        <Button variant="contained" color="secondary" >
+        <Button variant="contained" color="secondary" onClick={this.handleBooking}>
         Book Now
       </Button>
       
@@ -130,4 +162,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { fetchChargers })(ChargerPage);
+export default connect(mapStateToProps, { fetchChargers, createBooking})(ChargerPage);
