@@ -6,8 +6,7 @@ import { NEW_BOOKING, FETCH_BOOKINGS} from './types';
 
     
     export const createBooking = bookingData => dispatch => {
-        console.log("new Booking ");
-        console.log(bookingData);
+      console.log(bookingData);
         fetch('https://oiv9h98hb4.execute-api.us-east-2.amazonaws.com/prod/-charger', {
           method: 'POST',
           headers: {

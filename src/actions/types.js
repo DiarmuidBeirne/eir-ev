@@ -1,3 +1,4 @@
 export const FETCH_CHARGERS = 'FETCH_CHARGERS';
 export const NEW_BOOKING = 'NEW_BOOKING';
 export const FETCH_BOOKINGS ='FETCH_BOOKINGS';
+export const FETCH_USERID = 'FETCH_USERID';

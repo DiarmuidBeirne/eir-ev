@@ -143,7 +143,7 @@ componentWillMount()
         <Divider variant="middle" />
         
         <Typography variant="h8" component="h8">
-          €{bookingObject.costPerHour} per hour
+          Status: {bookingObject.status} 
         </Typography>
         
 

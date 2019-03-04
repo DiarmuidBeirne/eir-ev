@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import { connect } from 'react-redux';
+import { fetchUserID } from '../../actions/loginActions';
+
+
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
@@ -47,7 +51,7 @@ const styles = theme => ({
   });
 
 
-export default class login extends Component {
+class login extends Component {
 
   constructor(props) {
         
@@ -62,7 +66,17 @@ export default class login extends Component {
 
 handleUsernameChange = evt => {
   this.setState({ usernameEntered: evt.target.value });
-  console.log(this.state);
+  
+};
+
+handleLogin = evt => {
+  this.setState({ usernameEntered: evt.target.value });
+  
+  const loginDetails = {
+    email: this.state.usernameEntered
+  }
+  console.log("login details before being passed:" + loginDetails);
+  this.props.fetchUserID(loginDetails);
 };
 
   render() {
@@ -89,7 +103,7 @@ handleUsernameChange = evt => {
           />
 <NavLink to="/chargerListings">
           <Button
-            onClick={this.handleUsernameChange}
+            onClick={this.handleLogin}
             fullWidth
             variant="contained"
             color="secondary"
@@ -104,3 +118,9 @@ handleUsernameChange = evt => {
     )
   }
 }
+const mapStateToProps = state => ({
+  User: state.user.userID
+});
+
+
+export default connect(mapStateToProps, { fetchUserID })(login);

@@ -11,11 +11,12 @@ export default function(state = initialState, action) {
     switch(action.type)
     {
         case NEW_BOOKING:
-        
+        console.log(action.payload.items);
         return {
             ...state,
-            item: action.payload.items
+            item: action.payload.Items
         };
+        
         case FETCH_BOOKINGS:
         console.log("BOOKING reducer");
         return {

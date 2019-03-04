@@ -75,7 +75,7 @@ class Map extends Component {
 
         
       // Important! Always set the container height explicitly
-      <div style={{ height: '80vh', width: '100%' }}>
+      <div style={{ height: '90vh', width: '100%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyAzKE4Dk6IRvQR_W9Rkr8J3Lb3kxlGqM_I' }}
           defaultCenter={coOrd}

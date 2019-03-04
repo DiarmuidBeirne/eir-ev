@@ -73,7 +73,7 @@ handleBooking = press => {
       startYear: this.state.selectedDate.getFullYear(),
       status: "booked"
     }
-
+    console.log("booking b4" + booking);
     this.props.createBooking(booking);
   
 }
