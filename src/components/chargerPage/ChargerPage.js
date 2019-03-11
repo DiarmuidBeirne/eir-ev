@@ -14,6 +14,7 @@ import { DateTimePicker } from 'material-ui-pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import AppHeader from '../AppHeader'
 
 
 
@@ -71,7 +72,7 @@ handleBooking = press => {
       startMinute: min,
       startMonth: this.state.selectedDate.getMonth() + 1,
       startYear: this.state.selectedDate.getFullYear(),
-      status: "booked"
+      status: "Awaiting Approval"
     }
     
     this.props.createBooking(booking);
@@ -107,6 +108,7 @@ componentWillMount()
 
       return (
         <div>
+          <AppHeader/>
           <Map lat={chargerObject.lat} lng={chargerObject.long}/>
           <br></br>
           <Paper  elevation={3}>

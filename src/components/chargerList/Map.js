@@ -9,6 +9,8 @@ import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";
 import { Redirect } from 'react-router-dom';
 import { throws } from 'assert';
+import AppHeader from '../AppHeader';
+import App from '../../App';
 
 const NavContainer = styled.main`
     position: fixed;
@@ -73,8 +75,9 @@ class Map extends Component {
      
     return (
 
-        
-      // Important! Always set the container height explicitly
+        <div>
+      
+      <AppHeader/>
       <div style={{ height: '90vh', width: '100%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyAzKE4Dk6IRvQR_W9Rkr8J3Lb3kxlGqM_I' }}
@@ -91,7 +94,7 @@ class Map extends Component {
         <NavContainer>
           <BottomNavbar changeView={this.changeViewMode}/>
           </NavContainer>
-      </div>
+      </div></div>
     );
   }
 }

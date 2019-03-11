@@ -14,6 +14,7 @@ import { DateTimePicker } from 'material-ui-pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import AppHeader from '../AppHeader';
 
 
 
@@ -107,6 +108,7 @@ componentWillMount()
 
       return (
         <div>
+          <AppHeader/>
           <Map lat={bookingObject.lat} lng={bookingObject.long}/>
           <br></br>
           <Paper  elevation={3}>

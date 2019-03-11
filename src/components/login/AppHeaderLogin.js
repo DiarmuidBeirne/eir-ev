@@ -56,54 +56,15 @@ class AppHeader extends React.Component {
         
         <AppBar position="static" color="white" elevation={8}>
           <Toolbar>
-          <NavLink to="/chargerListings">
-            <IconButton className={classes.menuButton} color="secondary" aria-label="home">
-              <HomeIcon />
-            </IconButton>
-            </NavLink>
+          
             
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Eir Ev
             </Typography>
             
-            {auth && (
-              <div>
-               
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="primary"
-                >
-                  <AccountCircle />
-                </IconButton>
-               
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <NavLink to="/profile">
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  </NavLink>
-                  <NavLink to="/admin">
-                  <MenuItem onClick={this.handleClose}>Admin Portal</MenuItem>
-                  </NavLink>
-                  <NavLink to="/">
-                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                  </NavLink>
-                </Menu> 
-              </div>
-            )}
+            
+              
+            
           </Toolbar>
         </AppBar>
       </div>

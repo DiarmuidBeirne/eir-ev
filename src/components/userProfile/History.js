@@ -9,6 +9,7 @@ import { fetchBookings } from '../../actions/bookingActions';
 import styled from "styled-components";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import AppHeader from '../AppHeader';
 
 
 const NavContainer = styled.main`
@@ -60,6 +61,7 @@ changeViewMode = (value) => {
         //const viewMode = list;
       return (
         <div>
+          <AppHeader/>
             <Typography variant="h5" component="h3">
           Profile of {this.props.User.firstname} {this.props.User.lastname}
         </Typography>
