@@ -70,13 +70,16 @@ handleUsernameChange = evt => {
 };
 
 handleLogin = evt => {
+  
   this.setState({ usernameEntered: evt.target.value });
   
   const loginDetails = {
     email: this.state.usernameEntered
   }
-  console.log("login details before being passed:" + loginDetails);
+
+
   this.props.fetchUserID(loginDetails);
+  
 };
 
   render() {
@@ -101,7 +104,7 @@ handleLogin = evt => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-<NavLink to="/chargerListings">
+ <NavLink to="/chargerListings">
           <Button
             onClick={this.handleLogin}
             fullWidth
@@ -119,7 +122,7 @@ handleLogin = evt => {
   }
 }
 const mapStateToProps = state => ({
-  User: state.user.userID
+  User: state.user.user
 });
 
 

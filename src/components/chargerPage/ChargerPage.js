@@ -61,7 +61,7 @@ handleBooking = press => {
       chargerID: this.state.chargerID,
       chargerType: this.state.chargerObject.chargerTypeName,
       cost: "0",
-      customerID: 3004,
+      customerID: this.props.User.userID,
       duration: this.state.timeRequired,
       lat: this.state.chargerObject.lat,
       long: this.state.chargerObject.long,
@@ -73,7 +73,7 @@ handleBooking = press => {
       startYear: this.state.selectedDate.getFullYear(),
       status: "booked"
     }
-    console.log("booking b4" + booking);
+    
     this.props.createBooking(booking);
   
 }
@@ -100,7 +100,7 @@ componentWillMount()
     
 
   render() {
-
+    
     const { selectedDate } = this.state;
     const { chargerObject} = this.state;
     
@@ -158,7 +158,8 @@ componentWillMount()
   }
 }
 const mapStateToProps = state => ({
-  chargers: state.chargers.chargers
+  chargers: state.chargers.chargers,
+  User: state.user.user 
 });
 
 

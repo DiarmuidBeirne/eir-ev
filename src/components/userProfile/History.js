@@ -24,6 +24,7 @@ class List extends Component {
 componentWillMount() {
     
     this.props.fetchBookings();
+
     
     
 }
@@ -33,19 +34,34 @@ changeViewMode = (value) => {
 };
 
   render() {
-      
-      const liveList = this.props.bookings.map((listItem) => (
+      const userBookingList = [];
+      const allBookings= this.props.bookings;
+      for(var i = 0; i < allBookings.length; i++)
+    {
+      console.log("User ID:" + this.props.User.userID);
+      if (allBookings[i].customerID == this.props.User.userID) {
+        userBookingList.push(allBookings[i]);
+        
+      }
+    } 
+
+      console.log("userList" + userBookingList);
+      var liveList = userBookingList.map((listItem) => (
           <div>
           <BookingListItem key={listItem.chargerID} listItem={listItem}/>
           <Divider variant="inset" />
           </div>
       ));
         
+      if(liveList.length === 0){
+        liveList = 
+        <h4>No Live Bookings</h4>;
+      }
         //const viewMode = list;
       return (
         <div>
             <Typography variant="h5" component="h3">
-          Profile
+          Profile of {this.props.User.firstname} {this.props.User.lastname}
         </Typography>
             <br></br>
              <Paper  elevation={6}>
@@ -83,7 +99,8 @@ changeViewMode = (value) => {
 // };
 
 const mapStateToProps = state => ({
-  bookings: state.bookings.bookings
+  bookings: state.bookings.bookings,
+  User : state.user.user
   
 });
 

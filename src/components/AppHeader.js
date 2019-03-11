@@ -95,6 +95,9 @@ class AppHeader extends React.Component {
                   <NavLink to="/admin">
                   <MenuItem onClick={this.handleClose}>Admin Portal</MenuItem>
                   </NavLink>
+                  <NavLink to="/">
+                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  </NavLink>
                 </Menu> 
               </div>
             )}

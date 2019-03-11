@@ -2,7 +2,7 @@ import { FETCH_USERID } from '../actions/types';
 
 const initialState = {
 
-    userID: {}
+    user: {}
 };
 
 
@@ -10,10 +10,10 @@ export default function(state = initialState, action) {
     switch(action.type)
     {
         case FETCH_USERID:
-        console ("it workds");
+        console.log("it works: " + action.payload);
         return {
             ...state,
-            userID: action.payload.Items
+            user: action.payload.Item
         };
 
 
