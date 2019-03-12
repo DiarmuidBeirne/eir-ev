@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
 import { Button } from '@material-ui/core';
+import AppHeader from '../AppHeader';
 
 
 const NavContainer = styled.main`
@@ -56,6 +57,7 @@ changeViewMode = (value) => {
         const viewMode = <div><h3>Admin Portal</h3></div>;
       return (
         <div>
+          <AppHeader/>
           {viewMode}
           <br></br>
           <Paper  elevation={10}>

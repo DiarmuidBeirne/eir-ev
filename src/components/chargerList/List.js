@@ -8,6 +8,7 @@ import { fetchChargers } from '../../actions/chargerActions';
 import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";
 import Map from './Map';
+import AppHeader from '../AppHeader';
 
 const NavContainer = styled.main`
     position: fixed;
@@ -42,6 +43,7 @@ changeViewMode = (value) => {
         const viewMode = list;
       return (
         <div>
+          <AppHeader/>
           {viewMode}
           
           <NavContainer>

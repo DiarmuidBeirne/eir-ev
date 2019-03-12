@@ -14,6 +14,7 @@ import { DateTimePicker } from 'material-ui-pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import AppHeader from '../AppHeader'
 
 
 
@@ -61,7 +62,7 @@ handleBooking = press => {
       chargerID: this.state.chargerID,
       chargerType: this.state.chargerObject.chargerTypeName,
       cost: "0",
-      customerID: 3004,
+      customerID: this.props.User.userID,
       duration: this.state.timeRequired,
       lat: this.state.chargerObject.lat,
       long: this.state.chargerObject.long,
@@ -71,9 +72,9 @@ handleBooking = press => {
       startMinute: min,
       startMonth: this.state.selectedDate.getMonth() + 1,
       startYear: this.state.selectedDate.getFullYear(),
-      status: "booked"
+      status: "Awaiting Approval"
     }
-
+    
     this.props.createBooking(booking);
   
 }
@@ -100,13 +101,14 @@ componentWillMount()
     
 
   render() {
-
+    
     const { selectedDate } = this.state;
     const { chargerObject} = this.state;
     
 
       return (
         <div>
+          <AppHeader/>
           <Map lat={chargerObject.lat} lng={chargerObject.long}/>
           <br></br>
           <Paper  elevation={3}>
@@ -158,7 +160,8 @@ componentWillMount()
   }
 }
 const mapStateToProps = state => ({
-  chargers: state.chargers.chargers
+  chargers: state.chargers.chargers,
+  User: state.user.user 
 });
 
 

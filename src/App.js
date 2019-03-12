@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
       <Container>
                     <Main>
-                <AppHeader/>
+                {/* <AppHeader/> */}
                 
      <Switch>
        <Route path="/" component={login} exact />
