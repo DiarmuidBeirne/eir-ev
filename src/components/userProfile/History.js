@@ -61,7 +61,7 @@ changeViewMode = (value) => {
         //const viewMode = list;
       return (
         <div>
-          <AppHeader/>
+          <AppHeader usertype={this.props.User.type}/>
             <Typography variant="h5" component="h3">
           Profile of {this.props.User.firstname} {this.props.User.lastname}
         </Typography>

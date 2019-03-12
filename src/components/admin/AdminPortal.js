@@ -4,7 +4,7 @@ import CustomListItem from './CustomListItem';
 import PropTypes from "prop-types";
 import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
-import { fetchChargers } from '../../actions/chargerActions';
+import { fetchBookings } from '../../actions/bookingActions';
 import BottomNavbar from './BottomNavbar';
 import styled from "styled-components";
 
@@ -14,6 +14,7 @@ import Fab from '@material-ui/core/Fab';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
 import { Button } from '@material-ui/core';
 import AppHeader from '../AppHeader';
+import BookingItemToApprove from './BookingItemToApprove';
 
 
 const NavContainer = styled.main`
@@ -30,14 +31,13 @@ const extendedIcon = styled.main`
 
 
 
-class List extends Component {
+class AdminPortal extends Component {
   
   
 
 componentWillMount() {
     
-    this.props.fetchChargers();
-    
+  this.props.fetchBookings();    
     
 }
 
@@ -46,19 +46,46 @@ changeViewMode = (value) => {
 };
 
   render() {
+    const bookingsToApprove = [];
+    const approvedBookings = [];
+    const allBookings= this.props.bookings;
+    console.log(allBookings);
+      for(var i = 0; i < allBookings.length; i++)
+    {  
+      if (allBookings[i].ownerID == this.props.User.userID && allBookings[i].bookingStatus === "Awaiting Approval") {
+        bookingsToApprove.push(allBookings[i]);
+      }
+      if (allBookings[i].ownerID == this.props.User.userID && allBookings[i].bookingStatus === "Confirmed") {
+        approvedBookings.push(allBookings[i]);
+      }
+    } 
+
+    var toApproveList = bookingsToApprove.map((listItem) => (
+      <div>
+      <BookingItemToApprove key={listItem.bookingID} listItem={listItem}/>
+      <Divider variant="inset" />
+      
+      </div>
+
+      
+  ));
+
+  var ApprovedList = approvedBookings.map((listItem) => (
+    <div>
+    <BookingItemToApprove key={listItem.bookingID} listItem={listItem}/>
+    <Divider variant="inset" />
     
-      const list = this.props.chargers.map((listItem) => (
-          <div>
-          <CustomListItem key={listItem.chargerID} listItem={listItem}/>
-          <Divider variant="inset" />
-          </div>
-      ));
+    </div>
+
+    
+));
+      
         
-        const viewMode = <div><h3>Admin Portal</h3></div>;
+        
       return (
         <div>
-          <AppHeader/>
-          {viewMode}
+          <AppHeader usertype={this.props.User.type}/>
+          <div><h3>Admin Portal</h3></div>
           <br></br>
           <Paper  elevation={10}>
         <Typography variant="h6" component="h6" color="primary">
@@ -80,17 +107,24 @@ changeViewMode = (value) => {
           Bookings to Approve
         </Typography>
         </Paper>
-        <br></br><br></br>
-        <h5>No Bookings to Approve!</h5>
-        <br></br><br></br>
+        {toApproveList}
+        {toApproveList.length == 0 && (
+                  <div><br></br><br></br>
+                  <h5>No Bookings to Approve</h5>
+                  <br></br><br></br></div>
+                  )}
+        
         <Paper  elevation={10}>
         <Typography variant="h6" component="h6" color="primary">
           Upcoming Bookings
         </Typography>
         </Paper>
-        <br></br><br></br>
-        <h5>No Upcoming Bookings</h5>
-        <br></br><br></br>
+        {ApprovedList}
+        {ApprovedList.length == 0 && (
+                  <div><br></br><br></br>
+                  <h5>No Upcoming Bookings</h5>
+                  <br></br><br></br></div>
+                  )}
         
         
         
@@ -108,15 +142,14 @@ changeViewMode = (value) => {
 
 
 
-List.propTypes = {
-  chargers: PropTypes.array.isRequired
-};
+
 
 const mapStateToProps = state => ({
-  chargers: state.chargers.chargers
+  bookings: state.bookings.bookings,
+  User: state.user.user
 });
 
 
 
 
-export default connect(mapStateToProps, { fetchChargers })(List);
+export default connect(mapStateToProps, { fetchBookings })(AdminPortal);

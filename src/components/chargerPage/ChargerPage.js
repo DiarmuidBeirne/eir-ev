@@ -14,7 +14,10 @@ import { DateTimePicker } from 'material-ui-pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import AppHeader from '../AppHeader'
+import AppHeader from '../AppHeader';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 
@@ -29,7 +32,8 @@ class ChargerPage extends Component {
       selectedDate: new Date(),
       timeRequired: 60,
          chargerID : this.props.match.params.chargerId,
-         chargerObject: {}
+         chargerObject: {},
+         bookingPopUpOpen: false
     };
     
 }
@@ -58,28 +62,39 @@ handleBooking = press => {
       addressLine2: this.state.chargerObject.addressLine2,
       addressLine3: this.state.chargerObject.addressLine3,
       bookingID: Math.floor(Math.random() * 9999) + 1000,
+      bookingStatus: "Awaiting Approval",
       chargerCode: 1234,
       chargerID: this.state.chargerID,
       chargerType: this.state.chargerObject.chargerTypeName,
       cost: "0",
       customerID: this.props.User.userID,
+      customerFirstName: this.props.User.firstname,
+      customerLastName: this.props.User.lastname,
       duration: this.state.timeRequired,
       lat: this.state.chargerObject.lat,
       long: this.state.chargerObject.long,
+      ownerID: this.state.chargerObject.owner,
       powerUsed: 0,
       startDate: this.state.selectedDate.getDate(),
       startHour: this.state.selectedDate.getHours(),
       startMinute: min,
       startMonth: this.state.selectedDate.getMonth() + 1,
-      startYear: this.state.selectedDate.getFullYear(),
-      status: "Awaiting Approval"
+      startYear: this.state.selectedDate.getFullYear()
+      
     }
     
     this.props.createBooking(booking);
+    this.setState({ bookingPopUpOpen: true });
   
 }
 
+handleBookingPopUpClose = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
 
+  this.setState({ bookingPopUpOpen: false });
+}; 
 
 
 componentWillMount()
@@ -108,7 +123,9 @@ componentWillMount()
 
       return (
         <div>
-          <AppHeader/>
+        <AppHeader usertype={this.props.User.type}/>
+        <div>
+          
           <Map lat={chargerObject.lat} lng={chargerObject.long}/>
           <br></br>
           <Paper  elevation={3}>
@@ -152,7 +169,33 @@ componentWillMount()
       </Button>
       
         </div>
-
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.bookingPopUpOpen}
+          autoHideDuration={2000}
+          
+          onClose={this.handleBookingPopUpClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Booking Confirmed</span>}
+          action={[
+            
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              
+              onClick={this.handleClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+        </div>
         
 
 

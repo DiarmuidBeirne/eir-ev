@@ -77,7 +77,7 @@ class Map extends Component {
 
         <div>
       
-      <AppHeader/>
+      <AppHeader usertype={this.props.User.type}/>
       <div style={{ height: '90vh', width: '100%' }}>
         <GoogleMap
           bootstrapURLKeys={{ key: 'AIzaSyAzKE4Dk6IRvQR_W9Rkr8J3Lb3kxlGqM_I' }}
@@ -100,6 +100,7 @@ class Map extends Component {
 }
  
 const mapStateToProps = state => ({
-    chargers: state.chargers.chargers
+    chargers: state.chargers.chargers,
+    User: state.user.user
   });
   export default connect(mapStateToProps, { fetchChargers })(Map);

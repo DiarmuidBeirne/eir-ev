@@ -108,7 +108,7 @@ componentWillMount()
 
       return (
         <div>
-          <AppHeader/>
+          <AppHeader usertype={this.props.User.type}/>
           <Map lat={bookingObject.lat} lng={bookingObject.long}/>
           <br></br>
           <Paper  elevation={3}>
@@ -170,7 +170,8 @@ componentWillMount()
   }
 }
 const mapStateToProps = state => ({
-  bookings: state.bookings.bookings
+  bookings: state.bookings.bookings,
+  User: state.user.user
 });
 
 

@@ -30,7 +30,7 @@ const styles = {
 
 class AppHeader extends React.Component {
   state = {
-    auth: true,
+    admin: (this.props.usertype == "admin"),
     anchorEl: null,
   };
 
@@ -48,7 +48,7 @@ class AppHeader extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { admin, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -66,7 +66,7 @@ class AppHeader extends React.Component {
               Eir Ev
             </Typography>
             
-            {auth && (
+            
               <div>
                
                 <IconButton
@@ -92,18 +92,21 @@ class AppHeader extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <NavLink to="/profile">
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  </NavLink>
+                {admin && (
                   <NavLink to="/admin">
                   <MenuItem onClick={this.handleClose}>Admin Portal</MenuItem>
                   </NavLink>
+                  )}
+                  <NavLink to="/profile">
+                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  </NavLink>
+                  
                   <NavLink to="/">
                   <MenuItem onClick={this.handleClose}>Logout</MenuItem>
                   </NavLink>
                 </Menu> 
               </div>
-            )}
+            
           </Toolbar>
         </AppBar>
       </div>

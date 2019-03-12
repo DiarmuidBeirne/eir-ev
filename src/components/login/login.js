@@ -110,7 +110,7 @@ handleLogin = evt => {
     }catch(err){
       console.log(err);
     that.setState({open : true });}
-  }, 500)
+  }, 900)
   
   
 };

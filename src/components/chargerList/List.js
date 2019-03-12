@@ -32,7 +32,7 @@ changeViewMode = (value) => {
 };
 
   render() {
-    
+      console.log("user type=" + this.props.User.type);
       const list = this.props.chargers.map((listItem) => (
           <div>
           <CustomListItem key={listItem.chargerID} listItem={listItem}/>
@@ -43,7 +43,7 @@ changeViewMode = (value) => {
         const viewMode = list;
       return (
         <div>
-          <AppHeader/>
+          <AppHeader usertype={this.props.User.type}/>
           {viewMode}
           
           <NavContainer>
@@ -64,7 +64,8 @@ List.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  chargers: state.chargers.chargers
+  chargers: state.chargers.chargers,
+  User: state.user.user
 });
 
 
