@@ -32,7 +32,7 @@ export default class BookingListItem extends Component {
       <Typography component="span"  color="textPrimary">
       {this.props.listItem.addressLine1}{", "}{this.props.listItem.addressLine2}{", "} {this.props.listItem.addressLine3}
       </Typography>
-      {"Status: "}{this.props.listItem.status}
+      {"Status: "}{this.props.listItem.bookingStatus}
     </React.Fragment>
   }
 />

@@ -56,7 +56,7 @@ changeViewMode = (value) => {
         
       if(liveList.length === 0){
         liveList = 
-        <h4>No Live Bookings</h4>;
+        <div><br></br><br></br><h4>No Live Bookings</h4><br></br><br></br></div>;
       }
         //const viewMode = list;
       return (

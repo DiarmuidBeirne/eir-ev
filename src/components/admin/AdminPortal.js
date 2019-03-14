@@ -15,6 +15,7 @@ import EuroIcon from '@material-ui/icons/EuroSymbol';
 import { Button } from '@material-ui/core';
 import AppHeader from '../AppHeader';
 import BookingItemToApprove from './BookingItemToApprove';
+import BookingApprovedItem from './BookingApprovedItem';
 
 
 const NavContainer = styled.main`
@@ -59,7 +60,7 @@ changeViewMode = (value) => {
         approvedBookings.push(allBookings[i]);
       }
     } 
-
+    var that = this;
     var toApproveList = bookingsToApprove.map((listItem) => (
       <div>
       <BookingItemToApprove key={listItem.bookingID} listItem={listItem}/>
@@ -72,7 +73,7 @@ changeViewMode = (value) => {
 
   var ApprovedList = approvedBookings.map((listItem) => (
     <div>
-    <BookingItemToApprove key={listItem.bookingID} listItem={listItem}/>
+    <BookingApprovedItem key={listItem.bookingID} listItem={listItem}/>
     <Divider variant="inset" />
     
     </div>

@@ -15,6 +15,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AppHeader from '../AppHeader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
@@ -26,58 +27,15 @@ class userBookingPage extends Component {
     super(props);
     
     this.state = { 
-      selectedDate: new Date(),
-      timeRequired: 60,
+      bookingConfirmed: false,
+      chargerLive: false,
          bookingID : this.props.match.params.bookingId,
          bookingObject: {}
     };
     
 }
 
-// handleDateChange = date => {
-//   this.setState({ selectedDate: date });
-// };
 
-// handleTimeAdded = press => {
-//   let newTime = this.state.timeRequired + 15;
-//   this.setState({ timeRequired: newTime});
-// }
-
-// handleTimeRemoved = press => {
-//   if(this.state.timeRequired > 0){
-
-//   let newTime = this.state.timeRequired - 15;
-//   this.setState({ timeRequired: newTime});
-//   }
-// }
-
-// handleBooking = press => {
-//   const min = ((this.state.selectedDate.getMinutes() == 0) ? this.state.selectedDate.getMinutes().toString() + "0" : this.state.selectedDate.getMinutes().toString());
-//   const booking = {
-//       addressLine1: this.state.chargerObject.addressLine1,
-//       addressLine2: this.state.chargerObject.addressLine2,
-//       addressLine3: this.state.chargerObject.addressLine3,
-//       bookingID: Math.floor(Math.random() * 9999) + 1000,
-//       chargerCode: 1234,
-//       chargerID: this.state.chargerID,
-//       chargerType: this.state.chargerObject.chargerTypeName,
-//       cost: "0",
-//       customerID: 3004,
-//       duration: this.state.timeRequired,
-//       lat: this.state.chargerObject.lat,
-//       long: this.state.chargerObject.long,
-//       powerUsed: 0,
-//       startDate: this.state.selectedDate.getDate(),
-//       startHour: this.state.selectedDate.getHours(),
-//       startMinute: min,
-//       startMonth: this.state.selectedDate.getMonth() + 1,
-//       startYear: this.state.selectedDate.getFullYear(),
-//       status: "booked"
-//     }
-
-//     this.props.createBooking(booking);
-  
-// }
 
 
 
@@ -93,17 +51,64 @@ componentWillMount()
       
       if (jsonData[i].bookingID == this.state.bookingID) {
         this.setState({ bookingObject: jsonData[i]});
-        
+        if(jsonData[i].bookingStatus == "Confirmed" || jsonData[i].bookingStatus == "Live")
+    {
+      this.setState({bookingConfirmed : true});
+    }
+    if(jsonData[i].bookingStatus == "Live")
+    {
+      this.setState({chargerLive : true});
+    }
       }
     }
+   
+    
+}
+
+handleChargerStart = () => {
+ 
+
+  fetch('https://dnm79kp5u9.execute-api.us-east-2.amazonaws.com/prod/-charger', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json'
+  },
+  body: JSON.stringify({
+      "bookingID" : this.state.bookingObject.bookingID,
+      "newStatus" : "Live"
+  })
+}).then(res => res.json())
+  .catch(error => console.log("error:" + error));
+
+  this.setState({ chargerLive: true});
+        
+}
+
+handleChargerStop = () => {
   
+
+  fetch('https://dnm79kp5u9.execute-api.us-east-2.amazonaws.com/prod/-charger', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json'
+  },
+  body: JSON.stringify({
+      "bookingID" : this.state.bookingObject.bookingID,
+      "newStatus" : "Confirmed"
+  })
+}).then(res => res.json())
+  .catch(error => console.log("error:" + error));
+
+  this.setState({ chargerLive: false});
+        
 }
     
 
   render() {
 
-    const { selectedDate } = this.state;
+    const { chargerLive } = this.state;
     const { bookingObject} = this.state;
+    const { bookingConfirmed } = this.state;
     
 
       return (
@@ -145,7 +150,7 @@ componentWillMount()
         <Divider variant="middle" />
         
         <Typography variant="h8" component="h8">
-          Status: {bookingObject.status} 
+          Status: {bookingObject.bookingStatus} 
         </Typography>
         
 
@@ -156,9 +161,19 @@ componentWillMount()
       </div>
       <br></br>
       <h1>
-        <Button variant="contained" color="secondary" onClick={this.handleBooking}>
+        {bookingConfirmed && !chargerLive && (
+        <Button variant="contained" color="primary" onClick={this.handleChargerStart}>
         Start Now
-      </Button>
+        </Button>)}
+        {!bookingConfirmed && (
+        <Button variant="contained" color="secondary" disabled >
+        Start Now
+        </Button>)}
+        {chargerLive && (<div>
+          <CircularProgress /><br></br>
+        <Button variant="contained" color="secondary" onClick={this.handleChargerStop}>
+        Stop Power
+        </Button></div>)}
       </h1>
       
         </div>

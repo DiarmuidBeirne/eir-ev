@@ -19,7 +19,7 @@ const actionButton = styled.button`
 `;
 
 
-export default class BookingItemToApprove extends Component {
+export default class BookingApprovedItem extends Component {
 
 
     handleBookingApproveClick = () => {
@@ -31,8 +31,7 @@ export default class BookingItemToApprove extends Component {
           'content-type': 'application/json'
         },
         body: JSON.stringify({
-            "bookingID" : this.props.listItem.bookingID,
-            "newStatus" : "Confirmed"
+            "bookingID" : this.props.listItem.bookingID
         })
       }).then(res => res.json())
         .catch(error => console.log("error:" + error));
@@ -65,12 +64,10 @@ export default class BookingItemToApprove extends Component {
       {this.props.listItem.addressLine1}{", "}{this.props.listItem.addressLine2}{", "} {this.props.listItem.addressLine3}
       </Typography>
       {"Status: "}{this.props.listItem.bookingStatus}<br></br>
-      <Button variant="contained" color="primary" className={actionButton} onClick={this.handleBookingApproveClick}>
-        Approve
-      </Button>  
+      
 
       <Button variant="contained" color="secondary" >
-        Reject
+        Cancel
       </Button>
     </React.Fragment>
   }
