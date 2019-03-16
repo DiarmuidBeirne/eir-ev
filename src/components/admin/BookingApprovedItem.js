@@ -22,24 +22,25 @@ const actionButton = styled.button`
 export default class BookingApprovedItem extends Component {
 
 
-    handleBookingApproveClick = () => {
-        console.log("Trying to Approve");
+  handleBookingCancelClick = () => {
+    console.log("Trying to Approve");
 
-        fetch('https://dnm79kp5u9.execute-api.us-east-2.amazonaws.com/prod/-charger', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            "bookingID" : this.props.listItem.bookingID
-        })
-      }).then(res => res.json())
-        .catch(error => console.log("error:" + error));
-    
-        
-    }
+    fetch('https://dnm79kp5u9.execute-api.us-east-2.amazonaws.com/prod/-charger', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+        "bookingID" : this.props.listItem.bookingID,
+        "newStatus" : "Cancelled "
+    })
+  }).then(res => res.json())
+    .catch(error => console.log("error:" + error));
 
-    
+    this.props.func(this.props.listItem);
+}
+
+  
   
   render() {
     let imgPath = 'images/' + this.props.listItem.chargerType + '/logo.png';
@@ -66,7 +67,7 @@ export default class BookingApprovedItem extends Component {
       {"Status: "}{this.props.listItem.bookingStatus}<br></br>
       
 
-      <Button variant="contained" color="secondary" >
+      <Button variant="contained" color="secondary" onClick={this.handleBookingCancelClick}>
         Cancel
       </Button>
     </React.Fragment>

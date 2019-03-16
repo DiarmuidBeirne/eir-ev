@@ -37,8 +37,26 @@ export default class BookingItemToApprove extends Component {
       }).then(res => res.json())
         .catch(error => console.log("error:" + error));
     
-        
+        this.props.func(this.props.listItem);
     }
+
+    handleBookingRejectClick = () => {
+      console.log("Trying to Approve");
+
+      fetch('https://dnm79kp5u9.execute-api.us-east-2.amazonaws.com/prod/-charger', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+          "bookingID" : this.props.listItem.bookingID,
+          "newStatus" : "Rejected"
+      })
+    }).then(res => res.json())
+      .catch(error => console.log("error:" + error));
+  
+      this.props.func(this.props.listItem);
+  }
 
     
   
@@ -69,7 +87,7 @@ export default class BookingItemToApprove extends Component {
         Approve
       </Button>  
 
-      <Button variant="contained" color="secondary" >
+      <Button variant="contained" color="secondary" onClick={this.handleBookingRejectClick}>
         Reject
       </Button>
     </React.Fragment>

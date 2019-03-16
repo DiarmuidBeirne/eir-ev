@@ -15,6 +15,7 @@ import Admin from './components/admin/AdminPortal';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import myChargers from './components/admin/myChargers';
 
 
 
@@ -51,6 +52,7 @@ class App extends Component {
        <Route path="/chargerMap" component={Map} />
        <Route path="/profile" component={Profile} />
        <Route path="/admin" component={Admin} />
+       <Route path="/myChargers" component={myChargers} />
       <Route path="/chargerPage/:chargerId" component={ChargerPage} name="chargerPage"/>
       <Route path="/booking/:bookingId" component={BookingPage} name="booking"/>
 

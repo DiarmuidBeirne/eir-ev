@@ -36,15 +36,13 @@ class BottomNavbar extends React.Component {
         onChange={this.handleChange}
         showLabels
       >
-      <NavLink to={"/chargerListings"}>
-        <BottomNavigationAction label="LHome" icon={<HomeIcon />} />
+      <NavLink to={"/admin"}>
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
         </NavLink>
-      <NavLink to={"/chargerListings"}>
+      <NavLink to={"/myChargers"}>
         <BottomNavigationAction label="List" icon={<ListIcon />} />
         </NavLink>
-        <NavLink to={"/chargerMap"}>
-        <BottomNavigationAction label="Settings View" icon={<SettingsIcon/>} />
-        </NavLink>
+        
       </BottomNavigation>
     );
   }

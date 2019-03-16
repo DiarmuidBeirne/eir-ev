@@ -94,7 +94,7 @@ class AppHeader extends React.Component {
                 >
                 {admin && (
                   <NavLink to="/admin">
-                  <MenuItem onClick={this.handleClose}>Admin Portal</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Owner Portal</MenuItem>
                   </NavLink>
                   )}
                   <NavLink to="/profile">

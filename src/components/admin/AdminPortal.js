@@ -33,6 +33,18 @@ const extendedIcon = styled.main`
 
 
 class AdminPortal extends Component {
+
+  constructor(props) {
+        
+    super(props);
+    
+    this.state = { 
+      bookingsToApprove: [],
+      approvedBookings: []
+      
+    };
+    
+}
   
   
 
@@ -42,28 +54,45 @@ componentWillMount() {
     
 }
 
+handleBookingChanged  = (booking) => {
+  const  newApprovedBookings  = this.state.approvedBookings;
+  newApprovedBookings.push(booking);
+  //this.setState({approvedBookings : newApprovedBookings})
+  this.props.fetchBookings();
+  this.props.fetchBookings();
+  
+}
+
+
 changeViewMode = (value) => {
   this.setState({ value });
 };
 
   render() {
+    // const bookingsToApprove2  = this.state.bookingsToApprove;
+    // const approvedBookings2  = this.state.approvedBookings;
     const bookingsToApprove = [];
     const approvedBookings = [];
-    const allBookings= this.props.bookings;
+    const allBookings = this.props.bookings;
+   // this.props.fetchBookings();
+   console.log("rendering");
     console.log(allBookings);
       for(var i = 0; i < allBookings.length; i++)
-    {  
+    {  //allBookings[i].ownerID == this.props.User.userID && 
       if (allBookings[i].ownerID == this.props.User.userID && allBookings[i].bookingStatus === "Awaiting Approval") {
+        
         bookingsToApprove.push(allBookings[i]);
-      }
+        
+      }//allBookings[i].ownerID == this.props.User.userID && 
       if (allBookings[i].ownerID == this.props.User.userID && allBookings[i].bookingStatus === "Confirmed") {
         approvedBookings.push(allBookings[i]);
       }
     } 
     var that = this;
+    
     var toApproveList = bookingsToApprove.map((listItem) => (
       <div>
-      <BookingItemToApprove key={listItem.bookingID} listItem={listItem}/>
+      <BookingItemToApprove key={listItem.bookingID} listItem={listItem} func={this.handleBookingChanged}/>
       <Divider variant="inset" />
       
       </div>
@@ -73,7 +102,7 @@ changeViewMode = (value) => {
 
   var ApprovedList = approvedBookings.map((listItem) => (
     <div>
-    <BookingApprovedItem key={listItem.bookingID} listItem={listItem}/>
+    <BookingApprovedItem key={listItem.bookingID} listItem={listItem} func={this.handleBookingChanged}/>
     <Divider variant="inset" />
     
     </div>
@@ -86,7 +115,7 @@ changeViewMode = (value) => {
       return (
         <div>
           <AppHeader usertype={this.props.User.type}/>
-          <div><h3>Admin Portal</h3></div>
+          <div><h3>Owner Portal </h3></div>
           <br></br>
           <Paper  elevation={10}>
         <Typography variant="h6" component="h6" color="primary">
@@ -129,7 +158,7 @@ changeViewMode = (value) => {
         
         
         
-          
+          <br></br><br></br>
           <NavContainer>
           <BottomNavbar changeView={this.changeViewMode}/>
           </NavContainer>

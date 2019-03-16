@@ -93,7 +93,7 @@ handleLogin = evt => {
   //this.setState({ usernameEntered: evt.target.value });
   evt.preventDefault();
   const loginDetails = {
-    email: this.state.usernameEntered
+    email: this.state.usernameEntered.toLowerCase()
   }
 
   
@@ -110,7 +110,7 @@ handleLogin = evt => {
     }catch(err){
       console.log(err);
     that.setState({open : true });}
-  }, 900)
+  }, 1500)
   
   
 };
