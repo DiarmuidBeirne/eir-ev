@@ -121,6 +121,7 @@ handleLogin = evt => {
         <AppHeaderLogin/>
       <CssBaseline />
       <br></br>
+      <img src="images/logo.png"/>
       <Paper elevation={8}>
         
         <Typography component="h1" variant="h5">
@@ -128,7 +129,7 @@ handleLogin = evt => {
         </Typography>
         <form onSubmit={this.handleLogin}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">User ID</InputLabel>
+            <InputLabel htmlFor="email">Email</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus="true" value={this.state.usernameEntered} onChange={evt => this.handleUsernameChange(evt)}/>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
@@ -151,12 +152,12 @@ handleLogin = evt => {
           <br></br><br></br>
         </form>
       </Paper>
-      <br></br><br></br><br></br>
+      <br></br><br></br>
       <Paper elevation={8}>
       <br></br>
       <h4>New to Eir EV?</h4>
       <br></br>
-      <NavLink to="/">
+      <NavLink to="/signup">
           
           <Button variant="contained" color="primary">
        Sign up now!

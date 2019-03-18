@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { NavLink } from 'react-router-dom';
 import CustomListItem from './CustomListItem';
 import PropTypes from "prop-types";
 import Divider from '@material-ui/core/Divider';
@@ -70,9 +70,11 @@ changeViewMode = (value) => {
         
           {chargerList}
           <br></br>
+          <NavLink to="/newCharger">
         <Button variant="contained" color="primary"  onClick={this.handleBookingApproveClick}>
         Add New Charger
       </Button>
+      </NavLink>
           <NavContainer>
           <BottomNavbar changeView={this.changeViewMode}/>
           </NavContainer>
