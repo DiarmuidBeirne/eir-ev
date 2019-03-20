@@ -244,7 +244,7 @@ handleSignUp2 = evt => {
         "addressLine1": this.state.addressLine1,
         "addressLine2": this.state.addressLine2,
         "addressLine3": this.state.addressLine3,
-      "email": this.state.emailEntered,
+      "email": this.state.emailEntered.toLowerCase(),
       "firstname": this.state.firstNameEntered,
       "lastname": this.state.lastNameEntered,
       "password": this.state.passwordEntered,
