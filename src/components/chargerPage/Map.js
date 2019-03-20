@@ -22,7 +22,7 @@ class Map extends Component {
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAzKE4Dk6IRvQR_W9Rkr8J3Lb3kxlGqM_I' }}
           defaultCenter={coOrd}
-          defaultZoom={14.5}
+          defaultZoom={14}
         >
            <BoltIcon
             lat={this.props.lat}

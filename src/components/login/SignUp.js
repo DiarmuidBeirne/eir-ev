@@ -226,29 +226,37 @@ handleSignUp2 = evt => {
            return;
   
     }
+    var userType;
+    if(this.state.ownerChecked){
+      userType = "admin";
+    }
+    else
+    {
+      userType= "standard";
+    }
     
-    this.setState({step: 3});
-    console.log(this.state);
-  //   const loginDetails = {
-  //     email: this.state.usernameEntered.toLowerCase()
-  //   }
-  
+    fetch('https://ra99vqdv4m.execute-api.us-east-2.amazonaws.com/prod/-charger', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        "addressLine1": this.state.addressLine1,
+        "addressLine2": this.state.addressLine2,
+        "addressLine3": this.state.addressLine3,
+      "email": this.state.emailEntered,
+      "firstname": this.state.firstNameEntered,
+      "lastname": this.state.lastNameEntered,
+      "password": this.state.passwordEntered,
+      "type": userType,
+      "userID": Math.floor(Math.random() * 99999) + 10000
+      })
+    }).then(res => res.json())
+      .catch(error => console.log("error:" + error));
+      this.setState({step: 3});
+  console.log(this.state);
     
-  //   this.props.fetchUserID(loginDetails);
-  //   this.props.fetchUserID(loginDetails);
-  //   var that = this;
-  //   setTimeout(function (){
-  //     try{
-  //     if(that.state.passwordEntered === that.props.User.password){
-  //       that.props.history.push('/chargerListings');
-  //       }else{
-  //         that.setState({ open: true });
-  //       }
-  //     }catch(err){
-  //       console.log(err);
-  //     that.setState({open : true });}
-  //   }, 1500)
-    
+
     
   };
 

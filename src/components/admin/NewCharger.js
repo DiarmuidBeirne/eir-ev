@@ -17,6 +17,11 @@ import { fetchUserID } from '../../actions/loginActions';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -61,54 +66,19 @@ class NewCharger extends Component {
     super(props);
     
     this.state = { 
-        step: 1,
-      firstNameEntered: "",
-      lastNameEntered: "",
-      emailEntered: "",
-      passwordEntered: "",
-      passwordConfirmEntered: "",
-      addressLine1: "",
-      addressLine2: "",
-      addressLine3: "",
+      addressLine1: this.props.User.addressLine1,
+      addressLine2: this.props.User.addressLine2,
+      addressLine3: this.props.User.addressLine3,
       auth: false,
       snackbarOpen: false,
-      errorMessage: "",
-      ownerChecked: false
+      chargerTypeValue: "CHAdeMO",
+      cost: "5.00",
     };
     
 }
 
-handleSnackbarClose = (event, reason) => {
-  if (reason === 'clickaway') {
-    return;
-  }
 
-  this.setState({ snackbarOpen: false });
-}; 
-
-handleFirstNameChange = evt => {
-    this.setState({ firstNameEntered: evt.target.value });
-};
-
-handleLastNameChange = evt => {
-    this.setState({ lastNameEntered: evt.target.value });
-};
-
-handleEmailChange = evt => {
-  this.setState({ emailEntered: evt.target.value });
-};
-
-handlePasswordChange = evt => {
-  this.setState({ passwordEntered: evt.target.value });
-  
-};
-
-handlePasswordConfirmChange = evt => {
-    this.setState({ passwordConfirmEntered: evt.target.value });
-    
-  };
-
-  handleAddress1Change = evt => {
+handleAddress1Change = evt => {
     this.setState({ addressLine1: evt.target.value });
 };
 
@@ -119,85 +89,39 @@ handleAddress2Change = evt => {
 handleAddress3Change = evt => {
     this.setState({ addressLine3: evt.target.value });
 };
+
+handleCostChange = evt => {
+  this.setState({cost: evt.target.value});
+}
+
+handleChargerTypeChange = evt => {
+  this.setState({chargerTypeValue: evt.target.value});
+}
   
 
   handleOwnerCheckBoxChange = evt => {
         this.setState({ownerChecked : evt.target.checked});
   }
 
-handleSignUp1 = evt => {
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
   
-  //this.setState({ usernameEntered: evt.target.value });
-  evt.preventDefault();
-  
-  
-  if(this.state.firstNameEntered == "")
-  {
-      
-        this.setState({ snackbarOpen: true,
-            errorMessage: "Please Enter Your First Name",
-            passwordEntered: "",
-            passwordConfirmEntered: ""
-         })
-         return;
+    this.setState({ snackbarOpen: false });
+  }; 
 
-  }
-  if(this.state.lastNameEntered == "")
-  {
-      
-        this.setState({ snackbarOpen: true,
-            errorMessage: "Please Enter Your Last Name",
-            passwordEntered: "",
-            passwordConfirmEntered: ""
-         })
-         return;
-
-  }
-  if(this.state.emailEntered == "")
-  {
-      
-        this.setState({ snackbarOpen: true,
-            errorMessage: "Please Enter Your Email",
-            passwordEntered: "",
-            passwordConfirmEntered: ""
-         })
-         return;
-
-  }
-  if(this.state.passwordEntered == "" || this.state.passwordConfirmEntered == "")
-  {
-      
-        this.setState({ snackbarOpen: true,
-            errorMessage: "Please Enter Password",
-            passwordEntered: "",
-            passwordConfirmEntered: ""
-         })
-         return;
-
-  }
-  if(!(this.state.passwordEntered == this.state.passwordConfirmEntered))
-  {
-      
-        this.setState({ snackbarOpen: true,
-            errorMessage: "Password Do not Match",
-            passwordEntered: "",
-            passwordConfirmEntered: ""
-         })
-         return;
-
-  }
-  this.setState({step: 2});
   
  
-};
 
-handleSignUp2 = evt => {
+
+handleAddCharger = evt => {
   
     //this.setState({ usernameEntered: evt.target.value });
     evt.preventDefault();
     
     
-    if(this.state.addressLine1 == "")
+    if(this.state.addressLine1 == null || this.state.addressLine1 == "")
     {
         
           this.setState({ snackbarOpen: true,
@@ -207,7 +131,7 @@ handleSignUp2 = evt => {
            return;
   
     }
-    if(this.state.addressLine2 == "")
+    if(this.state.addressLine2 == null || this.state.addressLine2 == "")
     {
         
           this.setState({ snackbarOpen: true,
@@ -217,7 +141,7 @@ handleSignUp2 = evt => {
            return;
   
     }
-    if(this.state.addressLine3 == "")
+    if(this.state.addressLine3 == null || this.state.addressLine3 == "")
     {
         
           this.setState({ snackbarOpen: true,
@@ -226,29 +150,62 @@ handleSignUp2 = evt => {
            return;
   
     }
-    
-    this.setState({step: 3});
-    console.log(this.state);
-  //   const loginDetails = {
-  //     email: this.state.usernameEntered.toLowerCase()
-  //   }
+    if(this.state.cost == "")
+    {
+        
+          this.setState({ snackbarOpen: true,
+              errorMessage: "Please Enter Cost Per Hour",
+           })
+           return;
   
+    }
+    var address1Split = this.state.addressLine1.split(' ').join('+');
+    var address2Split =this.state.addressLine2.split(' ').join('+');
+    var address3Split = this.state.addressLine3.split(' ').join('+');
     
-  //   this.props.fetchUserID(loginDetails);
-  //   this.props.fetchUserID(loginDetails);
-  //   var that = this;
-  //   setTimeout(function (){
-  //     try{
-  //     if(that.state.passwordEntered === that.props.User.password){
-  //       that.props.history.push('/chargerListings');
-  //       }else{
-  //         that.setState({ open: true });
-  //       }
-  //     }catch(err){
-  //       console.log(err);
-  //     that.setState({open : true });}
-  //   }, 1500)
-    
+    var apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address1Split + ",+" + address2Split + ",+" + address3Split + "&key=AIzaSyC0VqN9BaKZN43tT6E33A_ew2IlqOWHhww";
+    var lat;
+    var long;
+    var body;
+    fetch(apiURL)
+    .then(res => res.json())
+    .then(json => {
+const lat = json.results[0].geometry.location.lat;
+const long = json.results[0].geometry.location.long;
+const body = {
+  "addressLine1": this.state.addressLine1,
+  "addressLine2": this.state.addressLine2,
+  "addressLine3": this.state.addressLine3,
+"chargerID": Math.floor(Math.random() * 99999) + 10000,
+"chargerTypeName": this.state.chargerTypeValue,
+"costPerHour": this.state.cost,
+"lat": lat,
+"long": long,
+"owner": this.props.User.userID
+}
+fetch('https://61rek4ywu6.execute-api.us-east-2.amazonaws.com/live/-charger', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }).then(res => res.json())
+        .catch(error => console.log("error:" + error));
+    console.log(this.state);
+console.log(json);
+    });
+
+    // console.log("Body:" + JSON.stringify(body));
+    // fetch('https://61rek4ywu6.execute-api.us-east-2.amazonaws.com/live/-charger', {
+    //     method: 'POST',
+    //     headers: {
+    //       'content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(body)
+    //   }).then(res => res.json())
+    //     .catch(error => console.log("error:" + error));
+    // console.log(this.state);
+  
     
   };
 
@@ -256,37 +213,64 @@ handleSignUp2 = evt => {
 
     
 
-    const step1 = <div><Paper elevation={8}>
+  
+
+    return (
+      <main >
+        <AppHeaderLogin/>
+      <CssBaseline />
+      <br></br>
+      
+      <div><Paper elevation={8}>
         
     <Typography component="h1" variant="h5">
       Add New Charger
-    </Typography><form onSubmit={this.handleSignUp1}>
-    <FormControl margin="normal" required fullWidth>
-      <InputLabel htmlFor="text">Charger Type Select Here</InputLabel>
-      <Input id="firstName" name="firstName" autoFocus="true" value={this.state.firstNameEntered} onChange={evt => this.handleFirstNameChange(evt)}/>
-    </FormControl>
+    </Typography><form onSubmit={this.handleAddCharger}><br></br>
+    <FormControl >
+          <InputLabel htmlFor="adornment-amount">Charger Type</InputLabel>
+          <Select
+            value={this.state.chargerTypeValue}
+            onChange={evt => this.handleChargerTypeChange(evt)}
+            width={20}
+            inputProps={{
+              name: 'age',
+              id: 'age-simple',
+            }}
+          >
+            
+            <MenuItem value={"CHAdeMO"}>CHAdeMO</MenuItem>
+            <MenuItem value={"Tesla"}>Tesla</MenuItem>
+            <MenuItem value={"Fast Charger"}>Fast Charger</MenuItem>
+          </Select>
+        </FormControl><br></br><br></br>
+        <FormControl >
+          <InputLabel htmlFor="adornment-amount">Cost</InputLabel>
+          <Input
+            id="adornment-amount"
+            value={this.state.cost}
+            onChange={evt => this.handleCostChange(evt)}
+            startAdornment={<InputAdornment position="start">€</InputAdornment>}
+          />
+        </FormControl>
     <FormControl margin="normal" required fullWidth>
       <InputLabel htmlFor="text">Address Line 1</InputLabel>
-      <Input id="firstName" name="firstName"  value={this.state.lastNameEntered} onChange={evt => this.handleLastNameChange(evt)}/>
+      <Input id="addressLine1" name="addressLine1"  value={this.state.addressLine1} onChange={evt => this.handleAddress1Change(evt)}/>
     </FormControl>
     <FormControl margin="normal" required fullWidth>
-      <InputLabel htmlFor="email">Address Line 2</InputLabel>
-      <Input id="email" name="email" autoComplete="email"  value={this.state.emailEntered} onChange={evt => this.handleEmailChange(evt)}/>
+      <InputLabel htmlFor="text">Address Line 2</InputLabel>
+      <Input id="addressLine2" name="addressLine2" autoComplete="email"  value={this.state.addressLine2} onChange={evt => this.handleAddress2Change(evt)}/>
     </FormControl>
     <FormControl margin="normal" required fullWidth>
-      <InputLabel htmlFor="password">Address Line 3</InputLabel>
-      <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.passwordEntered} onChange={evt => this.handlePasswordChange(evt)}/>
+      <InputLabel htmlFor="text">Address Line 3</InputLabel>
+      <Input name="addressLine3" type="text" id="addressLine3" value={this.state.addressLine3} onChange={evt => this.handleAddress3Change(evt)}/>
     </FormControl>
-    <FormControl margin="normal" required fullWidth>
-      <InputLabel htmlFor="password">Cost Per Hour</InputLabel>
-      <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.passwordConfirmEntered} onChange={evt => this.handlePasswordConfirmChange(evt)}/>
-    </FormControl>
+    
    
     <br></br><br></br>
     
     
     <Button
-      onClick={this.handleSignUp1}
+      onClick={this.handleAddCharger}
       type="submit"
       variant="contained"
       color="secondary"
@@ -299,86 +283,6 @@ handleSignUp2 = evt => {
   </form></Paper>
   
   </div>
-
-  const step2 = 
-  <div><Paper elevation={8}>
-        
-  <Typography component="h1" variant="h5">
-    Sign Up
-  </Typography>
-      <br></br>
-      <h6>Add your Address</h6>
-  <form onSubmit={this.handleSignUp2}>
-  <FormControl margin="normal" required fullWidth>
-    <InputLabel htmlFor="text">Address Line 1</InputLabel>
-    <Input id="addresssLine1" name="addressLine1" autoFocus="true" value={this.state.addressLine1} onChange={evt => this.handleAddress1Change(evt)}/>
-  </FormControl>
-  <FormControl margin="normal" required fullWidth>
-    <InputLabel htmlFor="text">Address Line 2</InputLabel>
-    <Input id="addressLine2" name="addressLine2"  value={this.state.addressLine2} onChange={evt => this.handleAddress2Change(evt)}/>
-  </FormControl>
-  <FormControl margin="normal" required fullWidth>
-    <InputLabel htmlFor="text">Address Line 3</InputLabel>
-    <Input id="addressLine3" name="addressLine3"   value={this.state.addressLine3} onChange={evt => this.handleAddress3Change(evt)}/>
-  </FormControl><br></br><br></br>
-  <h6>List your charger with Eir EV with an Owner Account?</h6>
-  <FormControlLabel
-          control={
-            <Tooltip title="List Your Chargers on Eir EV">
-            <Checkbox
-              checked={this.state.ownerChecked}
-              onChange={evt => this.handleOwnerCheckBoxChange(evt)}
-              value="checkedB"
-              color="primary"
-            />
-            </Tooltip>
-          }
-          
-          label="Owner Account"
-        />
-        
- 
-  <br></br>
-  
-  
-  <Button
-    onClick={this.handleSignUp2}
-    type="submit"
-    variant="contained"
-    color="secondary"
-    
-  >
-    Sign up
-  </Button>
- 
-  <br></br><br></br>
-</form></Paper>
-<br></br><br></br><br></br>
-      <h6>Already Have an Account?</h6>
-      <NavLink to="/"><h5>Sign in here</h5></NavLink>
-</div>
-
-const step3 = <div><br></br><br></br><br></br><div><h3>Congrats!</h3><h5>You are now a member of Eir EV</h5><NavLink to="/"><h5>Sign in here</h5></NavLink></div></div>
-
-var currentStep;
-if(this.state.step === 1){
-currentStep = step1;
-}
-if(this.state.step === 2){
-    currentStep = step2;
-}
-if(this.state.step === 3){
-    currentStep = step3;
-}
-
-
-    return (
-      <main >
-        <AppHeaderLogin/>
-      <CssBaseline />
-      <br></br>
-      
-      {currentStep}
 
       <Snackbar
           anchorOrigin={{
