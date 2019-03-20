@@ -21,6 +21,17 @@ const actionButton = styled.button`
 
 export default class BookingItemToApprove extends Component {
 
+  constructor(props) {
+        
+    super(props);
+    
+    this.state = { 
+      step: 1
+      
+    };
+    
+}
+
 
     handleBookingApproveClick = () => {
         console.log("Trying to Approve");
@@ -36,7 +47,9 @@ export default class BookingItemToApprove extends Component {
         })
       }).then(res => res.json())
         .catch(error => console.log("error:" + error));
-    
+    if(this.state.step == 1){
+      this.setState({step: 2});
+    }
         this.props.func(this.props.listItem);
     }
 
@@ -83,13 +96,18 @@ export default class BookingItemToApprove extends Component {
       {this.props.listItem.addressLine1}{", "}{this.props.listItem.addressLine2}{", "} {this.props.listItem.addressLine3}
       </Typography>
       {"Status: "}{this.props.listItem.bookingStatus}<br></br>
-      <Button variant="contained" color="primary" className={actionButton} onClick={this.handleBookingApproveClick}>
+      {(this.state.step == 1) && (<Button variant="contained" color="primary" className={actionButton} onClick={this.handleBookingApproveClick}>
         Approve
       </Button>  
-
+      )}
+      {(this.state.step == 2) && (<Button variant="contained" color="primary" className={actionButton} onClick={this.handleBookingApproveClick}>
+        Confirm
+      </Button>  
+      )}
       <Button variant="contained" color="secondary" onClick={this.handleBookingRejectClick}>
         Reject
       </Button>
+      
     </React.Fragment>
   }
 />
